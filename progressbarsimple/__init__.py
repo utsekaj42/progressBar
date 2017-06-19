@@ -26,6 +26,12 @@ Examples:
 
 import sys
 import io
+try:
+    # Python 3
+    from cStringIO import StringIO
+except ImportError:
+    # Python 2 only:
+    from StringIO import StringIO
 
 #for python 2.7
 from builtins import range
@@ -142,7 +148,8 @@ class ProgressBar(object):
         # handle for stdout
         self.stdout = sys.stdout
         # buffer for stdout outputs
-        outputBuffer = io.StringIO()
+        #outputBuffer = io.StringIO()
+        outputBuffer = StringIO()
         # redirect system stdout to buffer
         sys.stdout = outputBuffer
 
