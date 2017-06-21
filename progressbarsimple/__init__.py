@@ -26,12 +26,7 @@ Examples:
 
 import sys
 import io
-try:
-    # Python 3
-    from cStringIO import StringIO
-except ImportError:
-    # Python 2 only:
-    from StringIO import StringIO
+from io import StringIO
 
 #for python 2.7
 from builtins import range
@@ -179,6 +174,14 @@ class ProgressBar(object):
         progressBar = next(self.progressBarGenerator)
         self.stdout.write(progressBar)
         self.stdout.flush()
+
+    def clean_up(self):
+        """ for immediate clean up """
+        while True:
+            try:
+                self.progress()
+            except StopIteration:
+                break 
 
     def progressMultiprocessing(self, iterationStatus):
         """
